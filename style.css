@@ -1,0 +1,234 @@
+/* Color Palette Variables */
+:root {
+    --mint: #CFF3E1;
+    --pink: #FFDDE6;
+    --cream: #FFF7EA;
+    --lavender: #E6E0F8;
+    --dark-text: #333333;
+}
+
+/* Base Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--cream);
+    color: var(--dark-text);
+    text-align: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Headings and Text */
+h1 {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    color: var(--dark-text);
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    font-size: clamp(1rem, 3vw, 1.25rem);
+    max-width: 600px;
+    margin: 0 auto 30px;
+}
+
+/* Leg Hero Section */
+.hero-section {
+    position: relative;
+    margin: 40px 0;
+}
+
+#leg-hero {
+    width: clamp(200px, 50vw, 300px); /* Responsive sizing for the leg */
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.1s ease-out; /* For the 'boop' micro-interaction */
+}
+
+/* Buttons */
+.actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.btn {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn:focus, .btn:hover {
+    outline: 3px solid var(--lavender);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.btn { /* Primary Button: Mint */
+    background-color: var(--mint);
+    color: var(--dark-text);
+}
+
+.secondary-btn { /* Secondary Button: Pink */
+    background-color: var(--pink);
+    color: var(--dark-text);
+}
+
+/* Final Get Well Soon Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1; /* Managed by JS to show/hide */
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: var(--cream);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-width: 90%;
+    transform: scale(1);
+    transition: transform 0.3s ease;
+    border: 5px solid var(--lavender);
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    pointer-events: none; /* Allows clicking through when hidden */
+}
+
+.modal-content h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    color: var(--pink);
+    margin-top: 0;
+    text-shadow: 2px 2px var(--mint);
+}
+
+.modal-message {
+    font-size: clamp(1.1rem, 4vw, 1.5rem);
+    margin-bottom: 30px;
+}
+
+/* Accessibility and UX */
+.caption {
+    font-size: 0.9rem;
+    color: var(--dark-text);
+    margin-top: 10px;
+}
+.sound-toggle-container {
+    position: absolute; /* Place it in a discrete corner or bottom */
+    bottom: 20px;
+    right: 20px;
+}
+
+/* Optional Gift Card Styling */
+.gift-card {
+    background-color: var(--lavender);
+    padding: 15px 25px;
+    border-radius: 10px;
+    max-width: 250px;
+    margin: 30px auto;
+    font-family: 'Quicksand', sans-serif;
+    color: var(--dark-text);
+    border: 2px dashed white;
+}
+.gift-card p { margin: 5px 0; }
+.coupon-text { font-weight: 700; font-size: 1.1rem; }
+.valid-text { font-style: italic; font-size: 0.9rem; }
+
+
+/* --- ANIMATIONS --- */
+
+/* Silly Hop & Wiggle Keyframes */
+@keyframes sillyHop {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-10px) rotate(5deg); } /* Hop 1 */
+    50% { transform: translateY(0) rotate(-5deg); }
+    75% { transform: translateY(-5px) rotate(3deg); } /* Hop 2 */
+}
+
+@keyframes wiggle {
+    0%, 100% { transform: rotate(-1deg); }
+    50% { transform: rotate(1deg); }
+}
+
+/* Confetti & Heart Animation */
+@keyframes fall {
+    0% { transform: translateY(-100vh) scale(0); opacity: 1; }
+    100% { transform: translateY(100vh) scale(1); opacity: 0; }
+}
+
+/* Apply on Load */
+#leg-hero {
+    /* Initial 'silly hop' on load */
+    animation: sillyHop 1.5s ease-out 1, wiggle 2s ease-in-out 1.5s infinite alternate;
+}
+
+/* Confetti Container (hidden until modal shows) */
+.confetti-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* CSS for creating the actual confetti/hearts (needs JS to populate) */
+.confetti-item {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: var(--pink);
+    border-radius: 50%;
+    opacity: 0;
+    animation: fall 10s linear infinite;
+}
+.confetti-item.heart {
+    /* Basic heart shape using pseudo-elements */
+    background: none;
+    position: relative;
+    width: 15px;
+    height: 15px;
+    transform: rotate(-45deg);
+}
+.confetti-item.heart:before,
+.confetti-item.heart:after {
+    content: "khayal rakhhh";
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    border-radius: 50%;
+    background: var(--lavender);
+    top: 0;
+    left: 0;
+}
+.confetti-item.heart:before {
+    left: -7.5px;
+}
+.confetti-item.heart:after {
+    top: -7.5px;
+}
